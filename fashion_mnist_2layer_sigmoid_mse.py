@@ -54,18 +54,16 @@ w1 = np.random.randn(a0.shape[1],y.shape[1])
 #for i in range(batch):
 #    z1 = np.dot(a0,w1)
 #    a1 = sigmoid(z1)
-#    err1 = ((a1-y)/batch)*sigmoid_prime(z1)
+#    C=(a1-y)**2/(2*batch)
+#    err1 = C*sigmoid_prime(z1)
 #    w1 -= alpha * np.dot(a0.T,err1)
     
 # minibatch
 for i in range(batch):
-    #only use minibatch number of data 
-    mini = np.random.randint(0,a0.shape[0],minibatch)
-    a0=a0[mini]
-    y=y[mini]
     z1 = np.dot(a0,w1)
     a1 = sigmoid(z1)
-    err1 = ((a1-y)/minibatch)*sigmoid_prime(z1)
+    C=(a1-y)**2/(2*batch)
+    err1 = C*sigmoid_prime(z1)
     w1 -= alpha * np.dot(a0.T,err1)
 
 
