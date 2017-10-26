@@ -36,7 +36,7 @@ y = label[y]
 def sigmoid(z):
     return 1/(1+np.exp(-z))
 
-def sigmoid_prime(z):
+def sigmoid_grad(z):
     return sigmoid(z) * (1-sigmoid(z))
 
 alpha = 0.4
@@ -65,7 +65,7 @@ for i in range(batch):
     y=y[mini]
     z1 = np.dot(a0,w1)
     a1 = sigmoid(z1)
-    err1 = ((a1-y)/minibatch)*sigmoid_prime(z1)
+    err1 = ((a1-y)/minibatch)*sigmoid_grad(z1)
     w1 -= alpha * np.dot(a0.T,err1)
 
 
