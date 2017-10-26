@@ -42,9 +42,22 @@ w1 = np.random.random((a0.shape[1], hidden_neuron))
 w2 = np.random.random((hidden_neuron, y.shape[1]))
 
 for i in range(batch):
+    mini = np.random.randint(0,a0.shape[0],minibatch)
+    a0=a0[mini]
+    y=y[mini]
+    
     z1 = np.dot(a0,w1)
     a1 = sigmoid(z1)
-    err1 = ((a1-y)/a1*(1-a1))*sigmoid_prime(z1)
+    
+    z2 = np.dot(a1,w2)
+    a2 = sigmoid(z2)
+    
+    # update w2 first
+    err2 = ((a2-y)/minibatch)*sigmoid_prime(z2)
+    w2 -= alpha * np.dot(a1.T,err2)
+    
+    # update w1
+    err1 = np.dot(w2.T,err2)*sigmoid_prime(z1)
     w1 -= alpha * np.dot(a0.T,err1)
 
 
